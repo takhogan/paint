@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tak.mapper.BondMapper">
+
+	<insert id="addBond" parameterType="bond" useGeneratedKeys="true" keyProperty="loan_id">
+		insert into loans(loan_id, loan_type, owner_name, borrower_name, loan_currency, loan_amount, initial_margin, interest_frequency, interest_currency, interest_amount, expiration, last_payment, active)
+		value(#{loan_id}, #{loan_type}, #{owner_name},#{borrower_name},#{loan_currency},#{loan_amount}, #{initial_margin}, #{interest_frequency}, #{interest_currency}, #{interest_amount}, #{expiration}, #{last_payment}, #{active});
+	</insert>
+
+	<select id="getBond" parameterType="_int" resultType="bond">
+		select *
+		from loans
+		where loan_id=#{loan_id}
+	</select>
+
+	<select id="listBonds" resultType="bond">
+		select *
+		from loans
+		order by expiration desc
+	</select>
+
+	<select id="listActiveBonds" resultType="bond">
+		select *
+		from loans
+		where active = 1;
+	</select>
+	<select id="listInActiveBonds" resultType="bond">
+		select *
+		from loans
+		where active != 1;
+	</select>
+	<select id="listLendRequests" parameterType="string" resultType="bond">
+		select *
+		from loans
+		where loan_currency=#{c_name} and borrower_name is null;
+	</select>
+	<select id="listBorrowRequests" parameterType="string" resultType="bond">
+		select *
+		from loans
+		where loan_currency=#{c_name} and owner_name is null;
+	</select>
+
+	<update id="updateBond" parameterType="bond">
+		update loans
+		set loan_amount=#{loan_amount}, last_payment=#{last_payment}, expiration=#{expiration}
+		where loan_id=#{loan_id}
+	</update>
+	<update	id="addBorrower">
+		update loans
+		set borrower_name=#{borrower_name}
+		where loan_id=#{loan_id}
+	</update>
+	<update	id="addLender">
+		update loans
+		set owner_name=#{owner_name}
+		where loan_id=#{loan_id}
+	</update>
+	<update id="makeActive">
+		update loans
+		set active = 1, last_payment=#{last_payment}
+		where loan_id=#{loan_id}
+	</update>
+	<update id="makePending" parameterType="int">
+		update loans
+		set active = 2
+		where loan_id=#{loan_id}
+	</update>
+	<delete id="deleteBond" parameterType="_int" >
+		delete
+		from loans
+		where loan_id=#{loan_id}
+	</delete>
+
+
+</mapper>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tak.mapper.TradeMapper">
+
+	<resultMap id="tradeResultMap" type="trade">
+		<id property="order_id" column="order_id" />
+		<result property="owner_name" column="owner_name"/>
+		<result property="counter_party" column="counter_party"/>
+		<result property="wantname" column="wantname"/>
+		<result property="wantamount" column="wantamount"/>
+		<result property="givename" column="givename"/>
+		<result property="giveamount" column="giveamount"/>
+		<result property="execution_time" column="execution_time"/>
+	</resultMap>
+
+	<insert id="addTrade" parameterType="trade">
+		insert into trades(order_id, owner_name, counter_party, wantname, wantamount, givename, giveamount, execution_time)
+		value(#{order_id}, #{owner_name},#{counter_party},#{wantname},#{wantamount}, #{givename},#{giveamount},#{execution_time});
+	</insert>
+
+	<select id="getTrade" parameterType="_int" resultType = "trade">
+		select *
+		from trades
+		where order_id=#{order_id}
+	</select>
+
+	<select id="listTrades" resultType = "trade">
+		select *
+		from trades
+		order by execution_time desc
+		limit 50
+	</select>
+
+	<select id="getLatestRate" resultType = "trade">
+		select * from trades
+		where wantname='Bitcoin' and givename='Litecoin'
+		union
+		select * from trades
+		where wantname='Litecoin' and givename='Bitcoin'
+		order by execution_time desc
+		limit 1;
+	</select>
+
+	<delete id="deleteTrade" parameterType="_int" >
+	        delete
+	        from trades
+	        where order_id= #{order_id}
+	</delete>
+
+
+</mapper>
+

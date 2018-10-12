@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tak.mapper.OrderMapper">
+
+	<resultMap id="orderResultMap" type="order">
+		<id property="order_id" column="order_id" />
+		<result property="owner_name" column="owner_name"/>
+		<result property="wantname" column="wantname"/>
+		<result property="wantamount" column="wantamount"/>
+		<result property="givename" column="givename"/>
+		<result property="giveamount" column="giveamount"/>
+	</resultMap>
+	
+	<insert id="addOrder" parameterType="order" useGeneratedKeys="true" keyProperty="order_id">
+		insert into orders(order_id, owner_name, wantname, wantamount, givename, giveamount)
+		value(#{order_id}, #{owner_name},#{wantname},#{wantamount}, #{givename},#{giveamount});
+	</insert>
+	
+	<select id="getOrder" parameterType="_int" resultMap="orderResultMap">
+		select *
+		from orders
+		where order_id=#{order_id}
+	</select>
+
+	<select id="listOrders" resultMap="orderResultMap">
+		select *
+		from orders
+		order by wantname
+	</select>
+	<select id="listOrdersByUsername" resultMap="orderResultMap">
+		select *
+		from orders
+		where owner_name=#{owner_name}
+	</select>
+	<select id="listSellOrders" resultMap="orderResultMap">
+		select *
+		from orders
+		where givename=#{givename}
+		order by (giveamount/wantamount) desc
+	</select>
+	<select id="listUniqueSellOrders" resultMap="orderResultMap">
+		select *
+		from orders
+		where givename=#{c_name} and not owner_name=#{user_name}
+		order by (giveamount/wantamount) desc
+	</select>
+	<select id="listBuyOrders" resultMap="orderResultMap">
+		select *
+		from orders
+		where wantname=#{wantname}
+		order by (wantamount/giveamount) asc
+	</select>
+	<select id = "listUniqueBuyOrders" resultMap="orderResultMap">
+		select *
+		from orders
+		where wantname=#{c_name} and not owner_name=#{user_name}
+		order by (wantamount/giveamount) asc
+	</select>
+	<select id="sumBuyOrders" resultType="double">
+		select sum(wantamount)
+		from orders
+		where wantname=#{wantname}
+	</select>
+	<select id="sumSellOrders" resultType="double">
+		select sum(giveamount)
+		from orders
+		where givename=#{givename}
+	</select>
+	<select id="sumOrdersByUsername" resultType="double">
+		select sum(giveamount)
+		from orders
+		where owner_name=#{owner_name}
+	</select>
+	<delete id="deleteOrder" parameterType="_int" >
+	    delete
+	    from orders
+	    where order_id= #{order_id}
+	</delete>
+	
+	
+</mapper>
+

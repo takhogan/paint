@@ -1,0 +1,83 @@
+package com.tak.service;
+
+import com.tak.pojo.*;
+
+import java.util.List;
+
+public interface TransactionService {
+    int addOrder(Order order);
+    Order getOrder(int order_id);
+    List<Order> listOrders();
+    List<Order> listOrdersByUsername(String owner_name);
+    List<Order> listBuyOrders(String c_name);
+    List<Order> listUniqueBuyOrders(String c_name, String user_name);
+    List<Order> listSellOrders(String c_name);
+    List<Order> listUniqueSellOrders(String c_name, String user_name);
+    double sumBuyOrders(String c_name);
+    double sumSellOrders(String c_name);
+    double sumOrdersByUsername(String owner_name);
+    List<String> getCurrencies();
+    List<String> getNCurrencies(int n);
+    int deleteOrder(int order_id);
+    int addWallet(Wallet w);
+    List<Double> getBalances(String user_name, String c_name);
+    double sumUserBalances(String user_name, String c_name);
+    Wallet getBigWallet(String user_name, String c_name);
+    Wallet getSmallWallet(String user_name, String c_name);
+    Wallet getWalletByID(int wallet_id);
+    List<Wallet> listWallets(String user_name);
+    int updateWallet(int wallet_id, double balance);
+    int swapOwnership(int wallet_id, String user_name);
+    int deleteWallet(int wallet_id);
+    boolean currencyExists(String c_name);
+    double sumAccountBalances(String c_name);
+    int addTrade(Trade trade);
+    Trade getTrade(int order_id);
+    List<Trade> listTrades();
+    int deleteTrade(int order_id);
+    List<News> listNews();
+    int addNews(News news);
+    Wallet createCurrency(String user_name, String c_name);
+    double validateBalance(double input);
+    int userCount();
+    double sumSupply(String c_name);
+    List<Player> listPlayers();
+    int addPlayer(Player p);
+    int removePlayer(int player_id);
+    int addBond(Bond b);
+    Bond getBond(int loan_id);
+    List<Bond> listBonds();
+    List<Bond> listActiveBonds();
+    List<Bond> listInActiveBonds();
+    List<Bond> listLendRequests(String c_name);
+    List<Bond> listBorrowRequests(String c_name);
+    int updateBond(Bond b);
+    int makeActive(int loan_id);
+    int makePending(int loan_id);
+    int addBorrower(int loan_id, String borrower_name);
+    int addLender(int loan_id, String owner_name);
+    int deleteBond(int loan_id);
+    int addContract(FuturesContract fc);
+    int getContract(int contract_id);
+    List<FuturesContract> listContracts();
+    List<FuturesContract> listActiveContracts();
+    List<FuturesContract> listShortFutures(String c_name);
+    List<FuturesContract> listLongFutures(String c_name);
+    int deleteContract(int contract_id);
+    double getLatestRate(String wantname, String givename);
+    int addCurrency(Currency c);
+    List<Currency> listCurrencies();
+    List<String> listTradableCurrencies();
+    List<String> listBondTradableCurrencies();
+    List<String> listFuturesTradableCurrencies();
+    Currency getCurrency(String c_name);
+    int addCurrencyTrading(String c_name);
+    int removeCurrencyTrading(String c_name);
+    int addBondTrading(String c_name);
+    int removeBondTrading(String c_name);
+    int addFuturesTrading(String c_name);
+    int removeFuturesTrading(String c_name);
+    int deleteCurrency(String c_name);
+
+
+}

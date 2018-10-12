@@ -1,0 +1,147 @@
+/*  borrowed from w3.css */
+.bar-button {
+    border:none;
+    display:inline-block;
+    vertical-align:middle;
+    overflow:hidden;
+    text-decoration:none;
+    text-align:center;
+    cursor:pointer;
+    white-space:nowrap;
+    background-color: black;
+    color: white;
+    padding: 15px 25px;
+    font-size: 16px;
+    float:left;
+    width:auto;
+    outline:0;
+}
+
+.bar-button:hover {
+    background-color: darkblue;
+}
+
+.top-bar{
+    background-color: black;
+    border: none;
+    width:auto;
+    margin: auto;
+    overflow:hidden;
+    display:inline-block;
+}
+/* borrowed from seekingalpha.com */
+.right-content{
+    float:right;
+    margin-top:2px;
+    width: 20%;
+}
+.left-content{
+    float:left;
+    margin-top:2px;
+    width: 78%;
+
+}
+.main-container{
+    width:100%;
+    min-height:100%;
+    min-width:800px;
+    font-size:0.8em;
+    margin:0 auto;
+    padding: 50px 9px 0 9px;
+    background-color:inherit;
+    overflow: hidden!important;
+}
+.news-item{
+    overflow: hidden;
+    padding: 1px;
+    background-color: lightgrey;
+    white-space: nowrap;
+}
+.news-item:hover{
+    background-color: yellow;
+    white-space: normal;
+}
+.right-container{
+    background-color: inherit;
+    padding: 2px;
+}
+.left-container{
+    padding: 2px;
+    background-color: inherit;
+}
+.left-item{
+    overflow: hidden;
+    padding: 1px;
+    background-color: inherit;
+    white-space: nowrap;
+}
+.right-item{
+    overflow: hidden;
+    padding: 1px;
+    background-color: inherit;
+    white-space: nowrap;
+}
+.market-button{
+    width: 100%;
+    border:none;
+    display:inline-block;
+    vertical-align:middle;
+    overflow:hidden;
+    text-decoration:none;
+    text-align:center;
+    cursor:pointer;
+    white-space:nowrap;
+    background-color: black;
+    color: white;
+    padding: 15px 25px;
+    font-size: 16px;
+    float:left;
+    outline:0;
+
+}
+.th-header{
+    text-align: center;
+    font-size: 21px;
+    background-color: darkslategrey;
+    color: white;
+    width: 100%;
+    margin: 5px;
+}
+.th-header-black{
+    text-align: center;
+    font-size: 21px;
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+.box{
+    width: 100%;
+    background-color: lightgrey;
+    margin: 5px;
+    text-align:center;
+    display: inline-block;
+    float: none;
+}
+table{
+    width: 100%;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+th{
+    background-color: lightgrey;
+}
+td{
+    background-color: lightgrey;
+}
+title, h1, h2, h3, p {
+    text-align: center;
+}
+form{
+    display: inline;
+}

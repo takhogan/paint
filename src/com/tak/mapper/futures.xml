@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tak.mapper.FuturesMapper">
+
+	<insert id="addContract" parameterType="futurescontract" useGeneratedKeys="true" keyProperty="contract_id">
+		insert into futures(contract_id, contract_type, creator, consumer, wantname, wantamount, givename, giveamount, expiration, active)
+		value(#{contract_id}, #{contract_type}, #{creator}, #{consumer}, #{wantname}, #{wantamount}, #{givename}, #{giveamount}, #{expiration}, #{active})
+	</insert>
+
+	<select id="getContract" parameterType="_int" resultType="futurescontract">
+		select *
+		from futures
+		where contract_id=#{contract_id}
+	</select>
+
+	<select id="listContracts" resultType="futurescontract">
+		select *
+		from futures
+		order by expiration desc
+	</select>
+	<select id="listActiveContracts" resultType="futurescontract">
+		select *
+		from futures
+		where active = 1
+		order by expiration desc
+	</select>
+	<select id="listShortFutures" resultType="futurescontract">
+		select *
+		from futures
+		where active = 0 and (givename=#{c_name} and contract_type = 1) or (wantname=#{c_name} and contract_type = 2)
+	</select>
+	<select id="listLongFutures" resultType="futurescontract">
+		select *
+		from futures
+		where active = 0 and (givename=#{c_name} and contract_type = 2) or (wantname=#{c_name} and contract_type = 1)
+	</select>
+
+	<delete id="deleteContract" parameterType="_int" >
+		delete
+		from futures
+		where contract_id=#{contract_id}
+	</delete>
+
+
+</mapper>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tak.mapper.PlayerMapper">
+
+	<resultMap id="playerResultMap" type="player">
+		<result property="user_id" column="user_id"/>
+		<result property="user_name" column="user_name"/>
+		<result property="mode" column="mode"/>
+	</resultMap>
+
+
+	<insert id="addPlayer" parameterType="player" useGeneratedKeys="true" keyProperty="user_id">
+		insert into players(user_id, user_name, mode)
+		value(#{user_id}, #{user_name},#{mode});
+	</insert>
+
+	<select id="listPlayers" resultMap="playerResultMap">
+		select *
+		from players
+	</select>
+	<delete id="removePlayer" parameterType="int">
+		delete
+		from players
+		where user_id=#{player_id}
+	</delete>
+
+
+
+</mapper>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tak.mapper.CurrencyMapper">
+
+	<insert id="addCurrency" parameterType="currency" useGeneratedKeys="true" keyProperty="c_id" keyColumn="c_id">
+		insert into currencies(c_id,c_name, c_trading, c_b_trading, c_f_trading)
+		value(#{c_id},(#{c_name},#{c_trading},#{c_b_trading},#{c_f_trading});
+	</insert>
+
+	<select id="listCurrencies" resultType="currency">
+		select *
+		from currencies
+		order by c_name asc
+	</select>
+	<select id="listTradableCurrencies" resultType="string">
+		select c_name
+		from currencies
+		where c_trading = 1
+		order by c_name asc
+	</select>
+	<select id="listBondTradableCurrencies" resultType="string">
+		select c_name
+		from currencies
+		where c_b_trading = 1
+		order by c_name asc
+	</select>
+	<select id="listFuturesTradableCurrencies" resultType="string">
+		select c_name
+		from currencies
+		where c_f_trading = 1
+		order by c_name asc
+	</select>
+
+	<select id="getCurrency" parameterType="string" resultType="currency">
+		select *
+		from currencies
+		where c_name=#{c_name}
+	</select>
+
+	<update id="addCurrencyTrading" parameterType="string">
+	    update currencies
+	    set c_trading=1
+	    where c_name=#{c_name}
+	</update>
+	<update id="removeCurrencyTrading" parameterType="string">
+	    update currencies
+	    set c_trading=0
+	    where c_name=#{c_name}
+	</update>
+
+	<update id="addBondTrading" parameterType="string">
+	    update currencies
+	    set c_b_trading=1
+	    where c_name=#{c_name}
+	</update>
+	<update id="removeBondTrading" parameterType="string">
+	    update currencies
+	    set c_b_trading=0
+	    where c_name=#{c_name}
+	</update>
+
+	<update id="addFuturesTrading" parameterType="string">
+	    update currencies
+	    set c_f_trading=1
+	    where c_name=#{c_name}
+	</update>
+	<update id="removeFuturesTrading" parameterType="string">
+	    update currencies
+	    set c_f_trading=0
+	    where c_name=#{c_name}
+	</update>
+
+	<delete id="deleteCurrency" parameterType="string">
+		delete
+		from currencies
+		where c_name=#{c_name}
+	</delete>
+
+
+</mapper>
+

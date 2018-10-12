@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tak.mapper.WalletMapper">
+
+	<resultMap id="walletResultMap" type="wallet">
+		<id property="wallet_id" column="wallet_id" />
+		<result property="user_name" column="user_name"/>
+		<result property="c_name" column="c_name"/>
+		<result property="balance" column="balance"/>
+	</resultMap>
+	<insert id="addWallet" parameterType="wallet" useGeneratedKeys="true" keyProperty="wallet_id" keyColumn="wallet_id">
+		insert into wallets(wallet_id, user_name, c_name, balance)
+		value(#{wallet_id},#{user_name},#{c_name},#{balance});
+		<selectKey keyProperty="wallet_id" resultType="int" order="AFTER">
+			select LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+	<select id="listWallets" parameterType="string" resultMap="walletResultMap">
+		select *
+		from wallets
+		where user_name=#{user_name}
+		order by c_name asc
+	</select>
+	<select id="getCurrencies" resultType="string">
+		select distinct c_name
+		from wallets
+		order by c_name asc
+	</select>
+	<select id="getNCurrencies" parameterType="_int" resultType="string">
+		select distinct c_name
+		from wallets
+		order by c_name asc
+		limit #{n}
+	</select>
+	<select id="getBalances" resultType="double">
+		select balance
+		from wallets
+		where user_name=#{user_name} and c_name=#{c_name}
+		order by balance desc
+	</select>
+	<select id="sumUserBalances" resultType="double">
+		select sum(balance)
+		from wallets
+		where user_name=#{user_name} and c_name=#{c_name}
+	</select>
+	<select id="getBigWallet" parameterType="wallet" resultMap="walletResultMap">
+		select *
+		from wallets
+		where user_name=#{user_name} and c_name=#{c_name}
+		order by balance desc
+		limit 1
+	</select>
+	<select id="getSmallWallet" parameterType="wallet" resultMap="walletResultMap">
+		select *
+		from wallets
+		where user_name=#{user_name} and c_name=#{c_name}
+		order by balance asc
+		limit 1
+	</select>
+	<select id="getOneWallet" parameterType="string" resultMap="walletResultMap">
+		select *
+		from wallets
+		where c_name=#{c_name}
+		limit 1
+	</select>
+	<select id = "getWalletByID" parameterType="_int" resultMap="walletResultMap">
+		select *
+		from wallets
+		where wallet_id=#{wallet_id}
+	</select>
+	<select id="sumAccountBalances" parameterType="string" resultType="double">
+		select sum(balance)
+		from wallets
+		where c_name=#{c_name}
+	</select>
+	<select id="userCount" resultType="int">
+		select count(distinct user_name)
+		from wallets
+	</select>
+
+	<update id="updateWallet">
+	    update wallets set balance=#{balance} where wallet_id=#{wallet_id}
+	</update>
+	<update id="swapOwnership">
+		update wallets set user_name=#{user_name} where wallet_id=#{wallet_id}
+	</update>
+	<delete id="deleteWallet" parameterType="_int">
+		delete
+		from wallets
+		where wallet_id=#{wallet_id}
+	</delete>
+
+
+</mapper>
+
