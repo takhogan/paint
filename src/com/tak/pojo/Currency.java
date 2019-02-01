@@ -42,6 +42,12 @@ public class Currency {
         this.c_b_trading = c_b_trading;
         this.c_f_trading = c_f_trading;
     }
+    public Currency(String c_name, int c_trading, int c_b_trading, int c_f_trading) {
+        this.c_name = c_name;
+        this.c_trading = (short) c_trading;
+        this.c_b_trading = (short) c_b_trading;
+        this.c_f_trading = (short) c_f_trading;
+    }
 
     public int getC_id() {
         return c_id;

@@ -17,4 +17,5 @@ public interface OrderMapper {
     Double sumSellOrders(String c_name);
     Double sumOrdersByUsername(String owner_name);
     int deleteOrder(int order_id);
+    int deleteAll();
 }

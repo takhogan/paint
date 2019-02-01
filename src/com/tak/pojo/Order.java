@@ -98,6 +98,7 @@ public class Order{
     public static String getFormName(){
         return "/currencygen";
     }
+    public static String getExecName() { return "/orderexec"; }
 
     public static String[] getVarNames(){
         String[] varNames = new String[6];

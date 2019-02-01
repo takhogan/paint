@@ -77,6 +77,7 @@ public class PaintController {
         req.setAttribute("sellVarNames",varNames);
         req.setAttribute("nBuyVars",varNames.length);
         req.setAttribute("nSellVars",varNames.length);
+        req.setAttribute("execName", Order.getExecName());
         return mav;
     }
 
@@ -93,6 +94,7 @@ public class PaintController {
         mav.addObject("nBuyVars", req.getAttribute("nBuyVars"));
         mav.addObject("sellVarNames",req.getAttribute("sellVarNames"));
         mav.addObject("nSellVars", req.getAttribute("nSellVars"));
+        mav.addObject("execName", req.getAttribute("execName"));
 
         mav.setViewName("market");
         return mav;
@@ -130,7 +132,7 @@ public class PaintController {
         String[] sellVarNames = Bond.getLendVarNames();
         req.setAttribute("sellVarNames",sellVarNames);
         req.setAttribute("nSellVars",sellVarNames.length);
-
+        req.setAttribute("execName", Bond.getExecName());
         return mav;
     }
     //INCOMPLETE
@@ -160,6 +162,7 @@ public class PaintController {
         String[] sellVarNames = FuturesContract.getShortVarNames();
         req.setAttribute("sellVarNames",sellVarNames);
         req.setAttribute("nSellVars",sellVarNames.length);
+        req.setAttribute("execName", FuturesContract.getExecName());
         return mav;
     }
 
@@ -212,7 +215,7 @@ public class PaintController {
     @RequestMapping(value = "/futuresexec")
     public ModelAndView FuturesExecutionServlet(HttpServletRequest req,
                                                 @CookieValue("username") String user,
-                                                @RequestParam("contract_id") Integer[] cid){
+                                                @RequestParam("id") Integer[] cid){
         ModelAndView mav = new ModelAndView("forward:/execute");
         mav.addObject("user"); //INCOMPLETE we have a bunch of user object name mismatches it's gonna be a problem
         //here is where we will take into account create type
@@ -223,7 +226,7 @@ public class PaintController {
     @RequestMapping("/bondexec")
     public ModelAndView BondExecutionServlet(HttpServletRequest req,
                                              @CookieValue("username") String user,
-                                             @RequestParam("bond_id") Integer[] bid){
+                                             @RequestParam("id") Integer[] bid){
         ModelAndView mav = new ModelAndView("forward:/execute");
         mav.addObject("user");
         LinkedList<FinanceObject> flist = new LinkedList<FinanceObject>();
@@ -415,7 +418,7 @@ public class PaintController {
     @RequestMapping("/orderexec")
     public ModelAndView OrderExecutionServlet(HttpServletRequest req,
                                               @CookieValue("username") String user,
-                                              @RequestParam(value = "tid") Integer[] tid){
+                                              @RequestParam(value = "id") Integer[] tid){
         ModelAndView mav = new ModelAndView("forward:/execute");
         mav.addObject("user");
         LinkedList<FinanceObject> flist = new LinkedList<>();
@@ -699,6 +702,10 @@ public class PaintController {
         manage_bonds();
         manage_futures();
     }
+//    @RequestMapping("/reset")
+//    public void ResetServlet(HttpServletRequest req){
+//        transactionService.resetAll();
+//    }
     //UNTESTED
     public void manage_futures(){
         ArrayList<FuturesContract> contrlist = new ArrayList<>(transactionService.listActiveContracts());
@@ -1016,6 +1023,12 @@ public class PaintController {
 
     public void operate_players(){ //will only operate 1 player (otherwise too expensive)
         LinkedList<Player> cblist = new LinkedList<>(transactionService.listPlayers());
+        if(cblist.isEmpty()){
+            transactionService.addPlayer(new Player("JANET_YELLEN", 40));
+            transactionService.addPlayer(new Player("WARREN_BUFFET", 20));
+            transactionService.addPlayer(new Player("B1LL_NYE", 50));
+            cblist = new LinkedList<>(transactionService.listPlayers());
+        }
         operate(cblist.get((int)(Math.random()*cblist.size())));
 
     }
@@ -1277,6 +1290,8 @@ public class PaintController {
         int mode = p.getMode();
         double upperlimit = (100.0-mode)/(100);
         double lowerlimit = (mode)/100.0;
+        //initializes wallets
+        transactionService.listWallets(user_name);
 
         //time tracking
         Date start = new Date();

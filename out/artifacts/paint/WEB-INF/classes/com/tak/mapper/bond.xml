@@ -72,6 +72,10 @@
 		from loans
 		where loan_id=#{loan_id}
 	</delete>
+	<update id="deleteAll">
+		truncate table loans
+	</update>
+
 
 
 </mapper>

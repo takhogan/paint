@@ -8,4 +8,5 @@ public interface PlayerMapper {
     List<Player> listPlayers();
     int addPlayer(Player p);
     int removePlayer(int player_id);
+    int deleteAll();
 }

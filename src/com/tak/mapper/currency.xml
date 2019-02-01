@@ -4,9 +4,9 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tak.mapper.CurrencyMapper">
 
-	<insert id="addCurrency" parameterType="currency" useGeneratedKeys="true" keyProperty="c_id" keyColumn="c_id">
-		insert into currencies(c_id,c_name, c_trading, c_b_trading, c_f_trading)
-		value(#{c_id},(#{c_name},#{c_trading},#{c_b_trading},#{c_f_trading});
+	<insert id="addCurrency" parameterType="currency" useGeneratedKeys="true" keyProperty="c_id">
+		insert into currencies(c_id, c_name, c_trading, c_b_trading, c_f_trading)
+		value(#{c_id},#{c_name},#{c_trading},#{c_b_trading},#{c_f_trading});
 	</insert>
 
 	<select id="listCurrencies" resultType="currency">
@@ -77,6 +77,9 @@
 		from currencies
 		where c_name=#{c_name}
 	</delete>
+	<update id="deleteAll">
+		truncate table currencies
+	</update>
 
 
 </mapper>

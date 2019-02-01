@@ -160,6 +160,7 @@ public class Bond {
     public static String getFormName(){
         return "/bondgen";
     }
+    public static String getExecName() { return "/bondexec"; }
 
     public static String[] getVarNames(){
         String[] varNames = new String[12];

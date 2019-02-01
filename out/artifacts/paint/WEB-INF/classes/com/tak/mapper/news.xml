@@ -21,6 +21,9 @@
 		order by eventtime desc
 		limit 50
 	</select>
+	<update id="deleteAll">
+		truncate table news
+	</update>
 
 
 

@@ -10,4 +10,5 @@ public interface TradeMapper {
     List<Trade> listTrades();
     int deleteTrade(int order_id);
     Trade getLatestRate(@Param("wantname") String wantname, @Param("givename") String givename);
+    int deleteAll();
 }

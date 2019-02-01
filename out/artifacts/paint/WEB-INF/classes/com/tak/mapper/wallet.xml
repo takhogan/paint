@@ -92,6 +92,9 @@
 		from wallets
 		where wallet_id=#{wallet_id}
 	</delete>
+	<update id="deleteAll">
+		truncate table wallets
+	</update>
 
 
 </mapper>

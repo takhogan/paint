@@ -18,4 +18,5 @@ public interface BondMapper {
     int addBorrower(@Param("loan_id") int loan_id, @Param("borrower_name") String borrower_name);
     int addLender(@Param("loan_id") int loan_id, @Param("owner_name") String owner_name);
     int deleteBond(int loan_id);
+    int deleteAll();
 }

@@ -119,6 +119,7 @@ public class FuturesContract {
     public static String getFormName(){
         return "/futuresgen";
     }
+    public static String getExecName() { return "/futuresexec"; }
 
     public static double requiredMargin(){
         return 0.05;

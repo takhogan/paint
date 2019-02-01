@@ -78,6 +78,7 @@ public interface TransactionService {
     int addFuturesTrading(String c_name);
     int removeFuturesTrading(String c_name);
     int deleteCurrency(String c_name);
+    int resetAll();
 
 
 }

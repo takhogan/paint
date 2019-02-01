@@ -11,4 +11,6 @@ public interface FuturesMapper {
     List<FuturesContract> listShortFutures(String c_name);
     List<FuturesContract> listLongFutures(String c_name);
     int deleteContract(int contract_id);
+    int deleteAll();
+
 }

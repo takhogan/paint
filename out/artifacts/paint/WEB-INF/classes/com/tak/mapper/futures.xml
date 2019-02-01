@@ -42,6 +42,9 @@
 		from futures
 		where contract_id=#{contract_id}
 	</delete>
+    <update id="deleteAll">
+		truncate table futures
+	</update>
 
 
 </mapper>

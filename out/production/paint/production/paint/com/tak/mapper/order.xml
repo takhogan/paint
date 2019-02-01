@@ -78,6 +78,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    from orders
 	    where order_id= #{order_id}
 	</delete>
+	<update id="deleteAll">
+		truncate table orders
+	</update>
 	
 	
 </mapper>

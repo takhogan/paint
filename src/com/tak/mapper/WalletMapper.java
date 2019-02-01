@@ -19,4 +19,5 @@ public interface WalletMapper {
     Double sumAccountBalances(String c_name);
     Integer userCount();
     int deleteWallet(int wallet_id);
+    int deleteAll();
 }

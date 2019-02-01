@@ -48,7 +48,7 @@
         </table>
         <input hidden type = text name = g_type value = "1"/>
     </form>
-    <form method = "post" action = http://localhost:9999/paint.generate>
+    <form method = "post" action = http://localhost:9999/paint/generate>
         <table>
             <tr>
                 <th>Player ID:</th>
@@ -67,6 +67,9 @@
         </table>
         <input type = submit value = Submit>
         <input hidden type = text name = g_type value = "2"/>
+    </form>
+    <form method = "post" action = http://localhost:9999/paint/reset>
+        <input type = submit value = reset>
     </form>
 </div>
 

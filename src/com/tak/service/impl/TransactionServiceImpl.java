@@ -184,6 +184,7 @@ public class TransactionServiceImpl implements TransactionService{
 
     public Wallet createCurrency(String user_name, String c_name){
         Wallet w = new Wallet(user_name, c_name, Math.random()*1000000);
+        addCurrency(new Currency(c_name, 1, 0, 0));
         addWallet(w);
         return w;
     }
@@ -260,6 +261,16 @@ public class TransactionServiceImpl implements TransactionService{
     public int removeFuturesTrading(String c_name){return currencyMapper.removeFuturesTrading(c_name);};
     public int deleteCurrency(String c_name){return currencyMapper.deleteCurrency(c_name);};
 
-
+    public int resetAll(){
+        bondMapper.deleteAll();
+        currencyMapper.deleteAll();
+        futuresMapper.deleteAll();
+        newsMapper.deleteAll();
+        orderMapper.deleteAll();
+        playerMapper.deleteAll();
+        tradeMapper.deleteAll();
+        walletMapper.deleteAll();
+        return 1;
+    }
 
 }

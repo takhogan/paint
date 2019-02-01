@@ -57,7 +57,7 @@
                 <button class="market-button" onclick=toggle("${m.c_name}")>
                         ${m.c_name}
                 </button>
-                <form method = "post" action="http://localhost:9999/paint/orderexec">
+                <form method = "post" action="http://localhost:9999/paint/${execName}">
                     <table id = "${m.c_name}-buy" style = "display:none">
                         <tr>
                             <th colspan ="${nBuyVars}" class = "th-header" style = "border-right: none;">
